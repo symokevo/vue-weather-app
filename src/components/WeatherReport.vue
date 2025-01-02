@@ -41,8 +41,8 @@ const fetchWeather = async (coords: Coords) : Promise<WeatherData> => {
       import.meta.env.VITE_APP_WEATHER_API_KEY
       }&q=${q}`
   );
-  const data = await res && res.json();
-  return data;
+  const weatherData = await res.json();
+  return weatherData;
 }
 
 onMounted(async () => {
@@ -51,7 +51,7 @@ onMounted(async () => {
   data.value = weatherResponse;
 });
 
-const formatDate = (dateString): string => {
+const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
   return new Intl.DateTimeFormat('en-US', {
     dateStyle: "long",
@@ -93,7 +93,6 @@ const formatDate = (dateString): string => {
         </p>
       </div>
     </article>
-
     <div v-else>Loading...</div>
   </div>
 </template>

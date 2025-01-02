@@ -18,7 +18,7 @@ const windStyle = computed(() => ({
       :style="windStyle">↓</span>
       <span class="sr-only"
         data-testid="direction-sr">
-        Wind direction: {{ degrees }} degrees
+        Wind direction: {{ props.degrees }} degrees
       </span>
   </span>
 </template>

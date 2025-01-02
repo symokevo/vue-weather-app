@@ -8,14 +8,15 @@ type Geolocation = {
 };
 
 const coords: Ref<Geolocation | undefined> = ref();
-const geolocationBlockedByUser: Ref<boolean>= ref(false);
+const geolocationBlockedByUser: Ref<boolean> = ref(false);
 
-const getGeolocation = async () : Promise<void> => {
+const getGeolocation = async (): Promise<void> => {
   await navigator.geolocation.getCurrentPosition(
-    async (position: {coords: Geolocation}) => {
+    async (position: { coords: Geolocation }) => {
       coords.value = position.coords;
+      emit("update-coords", position.coords); // Emit coords
     },
-    (error: {message: string}) => {
+    (error: { message: string }) => {
       geolocationBlockedByUser.value = true;
       console.error(error.message);
     }
@@ -25,6 +26,10 @@ const getGeolocation = async () : Promise<void> => {
 onMounted(async () => {
   await getGeolocation();
 });
+
+const emit = defineEmits<{
+  (event: "update-coords", coords: Geolocation): void;
+}>();
 </script>
 
 <template>
